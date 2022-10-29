@@ -9,7 +9,10 @@
     "**/.classpath": true,
     "**/.project": true,
     "**/.settings": true,
-    "**/.factorypath": true
+    "**/.factorypath": true,
+    ".svelte-kit": true,
+    ".vscode": true,
+    "node_modules": true
   },
-  "hide-files.files": []
+  "hide-files.files": [".svelte-kit", ".vscode", "node_modules"]
 }
