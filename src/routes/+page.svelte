@@ -37,7 +37,7 @@
       bind:value={searchTerm} />
     {#if isFocused}
       <div
-        class="absolute rounded-b-xl scrollbar-hide w-[90%] md:w-1/2 flex flex-col top-16 max-h-64 overflow-scroll bg-[#2D333B] shadow-xl border-t border-white/10 px-5 py-2 transition-all duration-500"
+        class="absolute w-[90%] md:w-1/2 flex flex-col top-16 max-h-64 overflow-y-scroll bg-[#2D333B] shadow-xl border-t border-white/10 px-5 py-2 transition-all duration-500 rounded-b-xl"
         transition:slide>
         {#each filteredAnswers as answer}
           <button
