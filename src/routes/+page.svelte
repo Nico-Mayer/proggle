@@ -25,7 +25,7 @@
 
 <main class="flex items-center flex-col pt-20 space-y-8 min-h-screen">
   <h1 class="text-7xl font-sans font-bold text-white">Proggle</h1>
-  <div class="flex flex-col relative w-screen items-center font-jetbrains">
+  <div class="flex flex-col relative w-screen items-center font-mono">
     <input
       class="w-full md:w-1/2 bg-[#2D333B] p-5 rounded-xl shadow-xl h-16 outline-none placeholder:text-white/20 focus:rounded-t-xl focus:rounded-b-none transition-all caret-white/60"
       class:duration-700={isFocused}
