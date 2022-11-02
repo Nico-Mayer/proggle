@@ -44,7 +44,7 @@
   }
 
   function handleArrowKeys(e) {
-    if (isFocused) {
+    if (isFocused && filteredAnswers.length > 0) {
       switch (e.key) {
         case 'ArrowUp':
           if (highlightIndex > 0) {
@@ -71,7 +71,7 @@
   <h1 class="text-6xl md:text-7xl font-sans font-bold text-white">Proggle</h1>
   <div class="flex flex-col relative w-screen items-center font-mono">
     <input
-      class="w-[90%] md:w-1/2 bg-[#2D333B] p-5 rounded-xl shadow-xl h-16 outline-none placeholder:text-white/20 focus:(rounded-b-none) caret-white/60 transition-all duration-500"
+      class="w-[90%] md:w-1/2 bg-[#2D333B] p-5 rounded-xl shadow-xl h-16 outline-none placeholder:text-white/20 focus:(rounded-b-none) caret-white/60 transition-all duration-500 text-white"
       type="text"
       placeholder="Type programming language..."
       on:focus={() => (isFocused = true)}
@@ -83,13 +83,13 @@
       bind:value={searchTerm} />
     {#if isFocused}
       <div
-        class="absolute w-[90%] md:w-1/2 flex flex-col top-16 max-h-80 overflow-y-scroll bg-[#2D333B] shadow-xl border-t border-white/10 p-2 transition-all duration-500 rounded-b-xl scrollbar-hide space-y-2"
+        class="absolute w-[90%] md:w-1/2 flex flex-col top-16 max-h-80 overflow-y-scroll bg-[#2D333B] shadow-xl border-t border-white/10 transition-all duration-500 rounded-b-xl scrollbar-hide space-y-2"
         bind:this={answerBox}
         transition:slide>
         {#each filteredAnswers as answer, index}
           <button
             class="flex text-white/60 items-center space-x-4 hover:(bg-white/10 text-white) rounded-xl p-5 h-14"
-            class:highlighted={index === highlightIndex}
+            class:bg-gray-700={index === highlightIndex}
             id={'btnIndex' + index}
             on:mousedown={() => (searchTerm = answer.name)}>
             <img src={answer.iconUrl} class="w-5" alt="icon" />
@@ -100,9 +100,3 @@
     {/if}
   </div>
 </main>
-
-<style>
-  .highlighted {
-    background-color: rgba(255, 255, 255, 0.3);
-  }
-</style>

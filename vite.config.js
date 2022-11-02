@@ -1,6 +1,5 @@
 import { sveltekit } from '@sveltejs/kit/vite'
 import Unocss from 'unocss/vite'
-import { extractorSvelte } from '@unocss/core'
 import presetUno from '@unocss/preset-uno'
 import presetWebFonts from '@unocss/preset-web-fonts'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
@@ -10,6 +9,7 @@ import presetIcons from '@unocss/preset-icons'
 const config = {
   plugins: [
     Unocss({
+      mode: 'svelte-scoped',
       presets: [
         presetUno(),
         presetIcons({}),
@@ -21,7 +21,6 @@ const config = {
           },
         }),
       ],
-      extractors: [extractorSvelte],
       transformers: [transformerVariantGroup(), transformerDirectives()],
     }),
     sveltekit(),
