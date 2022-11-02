@@ -1,5 +1,5 @@
 <script>
-  import { answers } from '../stores/answerstore'
+  import { answers } from '$lib/stores/answerstore'
   import { slide } from 'svelte/transition'
 
   let isFocused = false
