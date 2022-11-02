@@ -1,3 +1,3 @@
 # Concept
 
-![](./public/concept.png)
+![](static/concept.png)
