@@ -67,11 +67,11 @@
 
 <svelte:window on:keydown={handleArrowKeys} />
 
-<main class="flex flex-1 items-center flex-col space-y-22 pt-20">
-  <h1 class="text-6xl md:text-7xl font-sans font-bold text-white">Proggle</h1>
-  <div class="flex flex-col relative w-screen items-center font-mono">
+<main class="flex flex-col space-y-22 flex-1 pt-20 items-center">
+  <h1 class="font-sans font-bold text-white text-6xl md:text-7xl">Proggle</h1>
+  <div class="flex flex-col font-mono w-[90%] relative items-center md:w-1/2">
     <input
-      class="w-[90%] md:w-1/2 bg-[#2D333B] p-5 rounded-xl shadow-xl h-16 outline-none placeholder:text-white/20 focus:(rounded-b-none) caret-white/60 transition-all duration-500 text-white"
+      class="rounded-xl outline-none bg-[#2D333B] h-16 shadow-xl text-white w-full p-5 transition-all duration-500 placeholder:text-white/20 caret-white/60 focus:(rounded-b-none)"
       type="text"
       placeholder="Type programming language..."
       on:focus={() => (isFocused = true)}
@@ -83,12 +83,12 @@
       bind:value={searchTerm} />
     {#if isFocused}
       <div
-        class="absolute w-[90%] md:w-1/2 flex flex-col top-16 max-h-80 overflow-y-scroll bg-[#2D333B] shadow-xl border-t border-white/10 transition-all duration-500 rounded-b-xl scrollbar-hide space-y-2"
+        class="border-t rounded-b-xl flex flex-col space-y-2 bg-[#2D333B] border-white/10 shadow-xl w-full max-h-80 transition-all top-16 duration-500 absolute overflow-y-scroll scrollbar-hide"
         bind:this={answerBox}
         transition:slide>
         {#each filteredAnswers as answer, index}
           <button
-            class="flex text-white/60 items-center space-x-4 hover:(bg-white/10 text-white) rounded-xl p-5 h-14"
+            class="rounded-xl flex space-x-4 h-14 p-5 text-white/60 items-center hover:(bg-white/10 text-white) "
             class:bg-gray-700={index === highlightIndex}
             id={'btnIndex' + index}
             on:mousedown={() => (searchTerm = answer.name)}>

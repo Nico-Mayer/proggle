@@ -5,10 +5,12 @@
   import Header from '../lib/Header.svelte'
 </script>
 
-<main class="min-h-screen w-full flex flex-col">
+<main class="flex flex-col min-h-screen w-full">
   <Header />
 
   <slot />
 
   <Footer />
 </main>
+
+<style uno:preflights uno:safelist global></style>
