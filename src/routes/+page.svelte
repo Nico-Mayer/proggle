@@ -1,6 +1,8 @@
 <script>
-  import { answers } from '$lib/stores/answerstore'
   import { slide } from 'svelte/transition'
+
+  export let data
+  const { answers } = data
 
   let isFocused = false
   let answerBox
@@ -10,12 +12,12 @@
 
   $: {
     if (searchTerm) {
-      filteredAnswers = $answers.filter((answer) =>
+      filteredAnswers = answers.filter((answer) =>
         answer.name.toLowerCase().startsWith(searchTerm.toLowerCase())
       )
       highlightIndex = 0
     } else {
-      filteredAnswers = [...$answers]
+      filteredAnswers = [...answers]
       highlightIndex = 0
     }
   }
