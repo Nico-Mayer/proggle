@@ -37,28 +37,18 @@
       if (searchTerm.toLowerCase() === filteredAnswers[0].name.toLowerCase()) {
         // Anwort abschicken
         inputField.blur()
-        console.log('Abschicken')
+        console.log(
+          'Abschicken ID:' +
+            filteredAnswers[0]._id +
+            ' Name: ' +
+            filteredAnswers[0].name
+        )
       }
       searchTerm = highlightBtnText
     } else if (e.key === 'Enter' && filteredAnswers.length <= 0 && isFocused) {
       playShake = true
       setTimeout(() => (playShake = false), 820)
     }
-  }
-
-  const isItIn = function (parent, child) {
-    let parentBounds = parent.getBoundingClientRect()
-    let childBounds = child.getBoundingClientRect()
-
-    if (
-      childBounds.top < parentBounds.top ||
-      childBounds.right > parentBounds.right ||
-      childBounds.bottom > parentBounds.bottom ||
-      childBounds.left < parentBounds.left
-    ) {
-      return false
-    }
-    return true
   }
 
   function handleArrowKeys(e) {
@@ -80,6 +70,21 @@
         highlightedBtn.scrollIntoView()
       }
     }
+  }
+
+  const isItIn = function (parent, child) {
+    let parentBounds = parent.getBoundingClientRect()
+    let childBounds = child.getBoundingClientRect()
+
+    if (
+      childBounds.top < parentBounds.top ||
+      childBounds.right > parentBounds.right ||
+      childBounds.bottom > parentBounds.bottom ||
+      childBounds.left < parentBounds.left
+    ) {
+      return false
+    }
+    return true
   }
 </script>
 
