@@ -1,6 +1,6 @@
 <script>
   import { slide } from 'svelte/transition'
-
+  import isItIn from '$lib/utils/isItIn.js'
   export let data
   const { answers } = data
 
@@ -70,21 +70,6 @@
         highlightedBtn.scrollIntoView()
       }
     }
-  }
-
-  const isItIn = function (parent, child) {
-    let parentBounds = parent.getBoundingClientRect()
-    let childBounds = child.getBoundingClientRect()
-
-    if (
-      childBounds.top < parentBounds.top ||
-      childBounds.right > parentBounds.right ||
-      childBounds.bottom > parentBounds.bottom ||
-      childBounds.left < parentBounds.left
-    ) {
-      return false
-    }
-    return true
   }
 </script>
 
