@@ -7,9 +7,7 @@
 
 <main class="flex flex-col min-h-screen w-full">
   <Header />
-
   <slot />
-
   <Footer />
 </main>
 
