@@ -85,24 +85,27 @@
     <span class="font-mono text-lg text-white/60">New language every day!</span>
   </div>
 
-  <div
-    class="rounded-xl flex flex-col font-mono bg-[#2D333B] shadow-xl w-[90%] items-center md:w-1/2">
-    <input
-      class="bg-transparent outline-none h-16 text-white w-full p-5 placeholder:text-white/20 caret-white/60"
-      type="text"
-      placeholder="Type programming language..."
-      class:apply-shake={playShake}
-      on:focus={() => (isFocused = true)}
-      on:blur={() => {
-        highlightIndex = 0
-        isFocused = false
-      }}
-      on:keypress={handleEnter}
-      bind:this={inputField}
-      bind:value={searchTerm} />
+  <div class="flex flex-col font-mono w-[90%] items-center md:w-1/2">
+    <section class="flex space-x-4 w-full">
+      <input
+        class="rounded-xl outline-none bg-[#2D333B] h-16 shadow-xl w-full p-5 placeholder:text-white/20 caret-white/60"
+        type="text"
+        placeholder="Type programming language..."
+        class:apply-shake={playShake}
+        on:focus={() => (isFocused = true)}
+        on:blur={() => {
+          highlightIndex = 0
+          isFocused = false
+        }}
+        on:keypress={handleEnter}
+        bind:this={inputField}
+        bind:value={searchTerm} />
+      <button class="rounded-xl bg-green-600 shadow-xl py-5 px-12">Try</button>
+    </section>
+
     {#if isFocused && filteredAnswers.length > 0}
       <div
-        class="border-t rounded-b-xl flex flex-col border-white/10 w-full max-h-80 overflow-y-scroll scrollbar-hide"
+        class="rounded-xl flex flex-col bg-[#2D333B] shadow-xl mt-4 w-full max-h-80 overflow-y-scroll scrollbar-hide"
         bind:this={answerBox}
         transition:slide>
         {#each filteredAnswers as answer, index}
@@ -150,7 +153,7 @@
   }
 
   .highlightedBtn {
-    background-color: rgba(255, 244, 255, 0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     color: white;
   }
 </style>
