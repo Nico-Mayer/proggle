@@ -2,6 +2,7 @@
   import { slide } from 'svelte/transition'
   import isItIn from '$lib/utils/isItIn.js'
   export let data
+
   const { answers } = data
 
   let playShake = false
@@ -33,10 +34,12 @@
       let highlightBtnText = document.querySelector(
         '#btnIndex' + highlightIndex
       ).childNodes[2].innerHTML
+      searchTerm = highlightBtnText
 
       if (searchTerm.toLowerCase() === filteredAnswers[0].name.toLowerCase()) {
         // Anwort abschicken
         inputField.blur()
+        searchTerm = ''
         console.log(
           'Abschicken ID:' +
             filteredAnswers[0]._id +
@@ -44,7 +47,6 @@
             filteredAnswers[0].name
         )
       }
-      searchTerm = highlightBtnText
     } else if (e.key === 'Enter' && filteredAnswers.length <= 0 && isFocused) {
       playShake = true
       setTimeout(() => (playShake = false), 820)
@@ -83,9 +85,10 @@
     <span class="font-mono text-lg text-white/60">New language every day!</span>
   </div>
 
-  <div class="flex flex-col font-mono w-[90%] relative items-center md:w-1/2">
+  <div
+    class="rounded-xl flex flex-col font-mono bg-[#2D333B] shadow-xl w-[90%] items-center md:w-1/2">
     <input
-      class="rounded-xl outline-none bg-[#2D333B] h-16 shadow-xl text-white w-full p-5 transition-all duration-500 placeholder:text-white/20 caret-white/60 focus:(rounded-b-none)"
+      class="bg-transparent outline-none h-16 text-white w-full p-5 placeholder:text-white/20 caret-white/60"
       type="text"
       placeholder="Type programming language..."
       class:apply-shake={playShake}
@@ -99,13 +102,14 @@
       bind:value={searchTerm} />
     {#if isFocused && filteredAnswers.length > 0}
       <div
-        class="border-t rounded-b-xl flex flex-col bg-[#2D333B] border-white/10 shadow-xl w-full max-h-80 transition-all top-16 duration-500 absolute overflow-y-scroll scrollbar-hide"
+        class="border-t rounded-b-xl flex flex-col border-white/10 w-full max-h-80 overflow-y-scroll scrollbar-hide"
         bind:this={answerBox}
         transition:slide>
         {#each filteredAnswers as answer, index}
+          <!-- svelte-ignore a11y-mouse-events-have-key-events -->
           <button
-            class="flex space-x-4 border-6 border-[#2D333B] rounded-2xl h-18 p-5 text-white/60 items-center hover:(bg-white/10 text-white) "
-            class:bg-gray-700={index === highlightIndex}
+            class="flex space-x-4 border-6 border-[#2D333B] rounded-2xl h-18 p-5 text-white/60 items-center hover:text-white "
+            class:highlightedBtn={index === highlightIndex}
             id={'btnIndex' + index}
             on:mousedown={() => (searchTerm = answer.name)}>
             <img src={answer.iconUrl} class="w-5" alt="icon" />
@@ -143,5 +147,10 @@
 
   .apply-shake {
     animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  .highlightedBtn {
+    background-color: rgba(255, 244, 255, 0.05);
+    color: white;
   }
 </style>

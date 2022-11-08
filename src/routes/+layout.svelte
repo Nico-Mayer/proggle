@@ -3,12 +3,15 @@
   import '@unocss/reset/tailwind.css'
   import Footer from '../lib/Footer.svelte'
   import Header from '../lib/Header.svelte'
+
+  export let data
+  const { correctAnswer, lastAnswer } = data
 </script>
 
 <main class="flex flex-col min-h-screen w-full">
-  <Header />
+  <Header {correctAnswer} />
   <slot />
-  <Footer />
+  <Footer {lastAnswer} />
 </main>
 
 <style uno:preflights uno:safelist global></style>

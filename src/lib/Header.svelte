@@ -1,4 +1,5 @@
 <script>
+  export let correctAnswer
 </script>
 
-<main>Header</main>
+<main>{correctAnswer.name}</main>
