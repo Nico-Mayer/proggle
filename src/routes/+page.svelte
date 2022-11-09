@@ -111,11 +111,15 @@
         {#each filteredAnswers as answer, index}
           <!-- svelte-ignore a11y-mouse-events-have-key-events -->
           <button
-            class="flex space-x-4 border-6 border-[#2D333B] rounded-2xl h-18 p-5 text-white/60 items-center hover:text-white "
+            class="flex space-x-6 border-6 border-[#2D333B] rounded-2xl h-18 p-5 text-white/60 items-center group hover:text-white"
             class:highlightedBtn={index === highlightIndex}
             id={'btnIndex' + index}
             on:mousedown={() => (searchTerm = answer.name)}>
-            <img src={answer.iconUrl} class="w-5" alt="icon" />
+            <img
+              src={answer.iconUrl}
+              class="opacity-60 w-5 group-hover:opacity-100"
+              class:hundertop={index === highlightIndex}
+              alt="icon" />
             <span>{answer.name}</span>
           </button>
         {/each}
@@ -146,6 +150,9 @@
     60% {
       transform: translate3d(4px, 0, 0);
     }
+  }
+  .hundertop {
+    opacity: 100;
   }
 
   .apply-shake {
