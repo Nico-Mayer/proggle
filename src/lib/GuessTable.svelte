@@ -4,9 +4,9 @@
 
 {#if guesses.length > 0}
   <table
-    class="border-separate font-mono [border-spacing:1rem] text-white table-fixed">
+    class="border-separate font-mono [border-spacing:1rem] text-white text-xs table-fixed">
     <tr>
-      <th class="border-b">Language</th>
+      <th>Language</th>
       <th>Typesystem</th>
       <th>Paradigm</th>
       <th>Usecases</th>
@@ -23,10 +23,14 @@
           <span>{guess.typesystem}</span>
         </td>
         <td class="col">
-          <span>{guess.paradigm}</span>
+          {#each guess.paradigm as paradigm}
+            <span>{paradigm}</span><br />
+          {/each}
         </td>
         <td class="col">
-          <span>{guess.usecase}</span>
+          {#each guess.usecase as usecase}
+            <span>{usecase}</span><br />
+          {/each}
         </td>
         <td class="col">
           <span>{guess.level}</span>
