@@ -30,7 +30,7 @@
       } else {
         dispatchable = false
       }
-    }
+    } else dispatchable = false
   }
 
   $: {
@@ -49,7 +49,10 @@
 
   function dispatchSubmit() {
     if (dispatchable) {
-      dispatch('submit', filteredAnswers[0])
+      if (highlightIndex) {
+        dispatch('submit', filteredAnswers[highlightIndex])
+      } else dispatch('submit', filteredAnswers[0])
+
       inputField.blur()
       searchTerm = ''
 
@@ -99,7 +102,7 @@
       let highlightedBtn = document.querySelector('#btnIndex' + highlightIndex)
 
       if (!isItIn(answerBox, highlightedBtn)) {
-        highlightedBtn.scrollIntoView()
+        highlightedBtn.scrollIntoView(false)
       }
     }
   }
