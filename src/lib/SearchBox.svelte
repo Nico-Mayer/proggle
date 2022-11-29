@@ -1,5 +1,5 @@
 <script>
-  import { slide } from 'svelte/transition'
+  import { slide, fade } from 'svelte/transition'
   import isItIn from '$lib/utils/isItIn.js'
   import { createEventDispatcher } from 'svelte'
   export let answers
@@ -13,6 +13,19 @@
   let searchTerm = ''
   let highlightIndex = 0
   let filteredAnswers = []
+  let clickable = false
+
+  $: {
+    let validInput = filteredAnswers.find((el) => {
+      return el.name.toLowerCase() === searchTerm.toLowerCase()
+    })
+
+    if (validInput) {
+      clickable = true
+    } else {
+      clickable = false
+    }
+  }
 
   $: {
     if (searchTerm) {
@@ -28,6 +41,26 @@
     }
   }
 
+  function dispatchSubmit() {
+    if (
+      searchTerm.toLowerCase() === filteredAnswers[0].name.toLowerCase() &&
+      filteredAnswers.length === 1
+    ) {
+      // Anwort abschicken
+      // Add Guess to list
+      dispatch('submit', filteredAnswers[0])
+      inputField.blur()
+      searchTerm = ''
+
+      console.log(
+        'Abschicken ID:' +
+          filteredAnswers[0]._id +
+          ' Name: ' +
+          filteredAnswers[0].name
+      )
+    }
+  }
+
   function handleEnter(e) {
     // Todo handle all cases when enter is pressed on focus
     if (e.key === 'Enter' && filteredAnswers.length > 0 && isFocused) {
@@ -35,24 +68,16 @@
         '#btnIndex' + highlightIndex
       ).childNodes[2].innerHTML
       searchTerm = highlightBtnText
-
-      if (searchTerm.toLowerCase() === filteredAnswers[0].name.toLowerCase()) {
-        // Anwort abschicken
-        // Add Guess to list
-        dispatch('submit', filteredAnswers[0])
-        inputField.blur()
-        searchTerm = ''
-
-        console.log(
-          'Abschicken ID:' +
-            filteredAnswers[0]._id +
-            ' Name: ' +
-            filteredAnswers[0].name
-        )
-      }
+      dispatchSubmit()
     } else if (e.key === 'Enter' && filteredAnswers.length <= 0 && isFocused) {
       playShake = true
       setTimeout(() => (playShake = false), 820)
+    }
+  }
+
+  function handleClick() {
+    if (clickable) {
+      dispatchSubmit()
     }
   }
 
@@ -80,7 +105,7 @@
 
 <svelte:window on:keydown={handleArrowKeys} />
 
-<div class="flex flex-col font-mono w-[90%] items-center md:w-1/2">
+<div class="flex flex-col font-mono w-[90%] items-center relative md:w-1/2">
   <section class="flex space-x-4 w-full">
     <input
       class="rounded-xl outline-none bg-[#2D333B] h-16 shadow-xl w-full p-5 placeholder:text-white/20 caret-white/60"
@@ -95,14 +120,19 @@
       on:keypress={handleEnter}
       bind:this={inputField}
       bind:value={searchTerm} />
-    <button class="rounded-xl bg-green-600 shadow-xl py-5 px-12">Try</button>
+    <button
+      class="rounded-xl bg-[#2D333B] shadow-xl py-5 px-12"
+      class:bg-green-500={clickable}
+      on:click={handleClick}>
+      Try</button>
   </section>
 
   {#if isFocused && filteredAnswers.length > 0}
     <div
-      class="rounded-xl flex flex-col bg-[#2D333B] shadow-xl mt-4 w-full max-h-80 overflow-y-scroll scrollbar-hide"
+      class="rounded-xl flex flex-col bg-[#2D333B] shadow-xl mt-4 w-full max-h-80 top-16 overflow-y-scroll scrollbar-hide  absolute"
       bind:this={answerBox}
-      transition:slide>
+      in:slide
+      out:fade={{ delay: 10, duration: 150 }}>
       {#each filteredAnswers as answer, index}
         <!-- svelte-ignore a11y-mouse-events-have-key-events -->
         <button

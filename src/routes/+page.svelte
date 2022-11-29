@@ -23,8 +23,10 @@
   }
 
   function handleSubmit(event) {
-    guessed = [event.detail, ...guessed]
-    localStorage.setItem('GUESSED', JSON.stringify(guessed))
+    if (answers.includes(event.detail)) {
+      guessed = [event.detail, ...guessed]
+      localStorage.setItem('GUESSED', JSON.stringify(guessed))
+    }
   }
 </script>
 
@@ -36,9 +38,11 @@
     <span class="font-mono text-lg text-white/60">New language every day!</span>
   </div>
   <Searchbox answers={validAnswers} on:submit={handleSubmit} />
-  <div>
+  <ul>
     {#each guessed as guess}
-      {guess.name}
+      <li>
+        {guess.name}
+      </li>
     {/each}
-  </div>
+  </ul>
 </main>
