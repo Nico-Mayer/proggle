@@ -4,7 +4,7 @@
 
 {#if guesses.length > 0}
   <table
-    class="border-separate font-mono [border-spacing:0.75rem] text-white table-fixed">
+    class="border-separate font-mono [border-spacing:1rem] text-white table-fixed">
     <tr>
       <th class="border-b">Language</th>
       <th>Typesystem</th>
@@ -20,19 +20,19 @@
           <span class="text-xs text-white/40">{guess.name}</span>
         </td>
         <td class="col">
-          <span>test</span>
+          <span>{guess.typesystem}</span>
         </td>
         <td class="col">
-          <span>test</span>
+          <span>{guess.paradigm}</span>
         </td>
         <td class="col">
-          <span>test</span>
+          <span>{guess.usecase}</span>
         </td>
         <td class="col">
-          <span>test</span>
+          <span>{guess.level}</span>
         </td>
         <td class="col">
-          <span>test</span>
+          <span>{guess.releaseDate}</span>
         </td>
       </tr>
     {/each}
