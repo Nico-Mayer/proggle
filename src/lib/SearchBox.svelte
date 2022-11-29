@@ -13,17 +13,23 @@
   let searchTerm = ''
   let highlightIndex = 0
   let filteredAnswers = []
-  let clickable = false
+  let dispatchable = false
 
   $: {
     let validInput = filteredAnswers.find((el) => {
       return el.name.toLowerCase() === searchTerm.toLowerCase()
     })
 
-    if (validInput) {
-      clickable = true
-    } else {
-      clickable = false
+    if (searchTerm && filteredAnswers.length > 0) {
+      if (
+        validInput ||
+        (searchTerm.toLowerCase() === filteredAnswers[0].name.toLowerCase() &&
+          filteredAnswers.length >= 1)
+      ) {
+        dispatchable = true
+      } else {
+        dispatchable = false
+      }
     }
   }
 
@@ -42,12 +48,7 @@
   }
 
   function dispatchSubmit() {
-    if (
-      searchTerm.toLowerCase() === filteredAnswers[0].name.toLowerCase() &&
-      filteredAnswers.length === 1
-    ) {
-      // Anwort abschicken
-      // Add Guess to list
+    if (dispatchable) {
       dispatch('submit', filteredAnswers[0])
       inputField.blur()
       searchTerm = ''
@@ -76,7 +77,7 @@
   }
 
   function handleClick() {
-    if (clickable) {
+    if (dispatchable) {
       dispatchSubmit()
     }
   }
@@ -96,6 +97,7 @@
           break
       }
       let highlightedBtn = document.querySelector('#btnIndex' + highlightIndex)
+
       if (!isItIn(answerBox, highlightedBtn)) {
         highlightedBtn.scrollIntoView()
       }
@@ -122,7 +124,7 @@
       bind:value={searchTerm} />
     <button
       class="rounded-xl bg-[#2D333B] shadow-xl py-5 px-12"
-      class:bg-green-500={clickable}
+      class:bg-green-500={dispatchable}
       on:click={handleClick}>
       Try</button>
   </section>

@@ -1,5 +1,6 @@
 <script>
   import Searchbox from '$lib/SearchBox.svelte'
+  import GuessTable from '$lib/GuessTable.svelte'
   import { onMount } from 'svelte'
   export let data
   const { answers } = data
@@ -35,14 +36,9 @@
     <h1 class="font-sans font-bold text-white mb-6 text-7xl md:text-8xl">
       Proggle
     </h1>
-    <span class="font-mono text-lg text-white/60">New language every day!</span>
+    <span class="font-mono text-lg text-white/60 self-end"
+      >New language every day!</span>
   </div>
   <Searchbox answers={validAnswers} on:submit={handleSubmit} />
-  <ul>
-    {#each guessed as guess}
-      <li>
-        {guess.name}
-      </li>
-    {/each}
-  </ul>
+  <GuessTable guesses={guessed} />
 </main>
